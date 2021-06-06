@@ -113,15 +113,9 @@ function clearPokemon() {
 }
 
 function viewStorage() {
-    let pokemon = "";
     for (let x = 1; x <= 500 && localStorage["pokemon" + x]; x++) {
-        pokemon += localStorage["pokemon" + x];
-        pokemon += " ";
-        if (x % 10 == 0) {
-            pokemon += "\n";
-        }
+        let str = "pokemon" + x;
+        document.getElementById(str).src = localStorage["pokemon" + x] + ".png";
     }
 
-    document.getElementById("storage").innerHTML = pokemon;
-    
 }

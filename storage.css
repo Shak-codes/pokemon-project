@@ -1,0 +1,8 @@
+.storage {
+    width: 60%;
+    background: #c04000;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    grid-column-gap: 20px;
+}
