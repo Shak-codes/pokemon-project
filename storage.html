@@ -9,19 +9,31 @@
 
         </main>
 
-        <div class="storage">
-            <img id="pokemon1" src="blank.png"/>
-            <img id="pokemon2" src="blank.png"/>
-            <img id="pokemon3" src="blank.png"/>
-            <img id="pokemon4" src="blank.png"/>
-            <img id="pokemon5" src="blank.png"/>
-            <img id="pokemon6" src="blank.png"/>
-            <img id="pokemon7" src="blank.png"/>
-            <img id="pokemon8" src="blank.png"/>
-            <img id="pokemon9" src="blank.png"/>
-            <img id="pokemon10" src="blank.png"/>
-            <img id="pokemon11" src="blank.png"/>
-            <img id="pokemon12" src="blank.png"/>
+        <div class="storage-grid">
+
+            <div class="storage">
+                <input type="image" id="pokemon1" class="pokemon" src="blank.png" onclick="checkStats('pokemon1')"/>
+                <input type="image"  id="pokemon2" class="pokemon" src="blank.png" onclick="checkStats('pokemon2')"/>
+                <input type="image"  id="pokemon3" class="pokemon" src="blank.png" onclick="checkStats('pokemon3')"/>
+                <input type="image"  id="pokemon4" class="pokemon" src="blank.png" onclick="checkStats('pokemon4')"/>
+                <input type="image"  id="pokemon5" class="pokemon" src="blank.png" onclick="checkStats('pokemon5')"/>
+                <input type="image"  id="pokemon6" class="pokemon" src="blank.png" onclick="checkStats('pokemon6')"/>
+                <input type="image"  id="pokemon7" class="pokemon" src="blank.png" onclick="checkStats('pokemon7')"/>
+                <input type="image"  id="pokemon8" class="pokemon" src="blank.png" onclick="checkStats('pokemon8')"/>
+                <input type="image"  id="pokemon9" class="pokemon" src="blank.png" onclick="checkStats('pokemon9')"/>
+                <input type="image"  id="pokemon10" class="pokemon" src="blank.png" onclick="checkStats('pokemon10')"/>
+                <input type="image"  id="pokemon11" class="pokemon" src="blank.png" onclick="checkStats('pokemon11')"/>
+                <input type="image"  id="pokemon12" class="pokemon" src="blank.png" onclick="checkStats('pokemon12')"/>
+            </div>
+
+            <div class="stats">
+                <div id="HP"></div>
+                <div id="ATK"></div>
+                <div id="DEF"></div>
+                <div id="SPEED"></div>
+                <div id="SPATK"></div>
+                <div id="SPDEF"></div>
+            </div>
         </div>
 
     </body>
