@@ -9,14 +9,13 @@ function searchRouteOne() {
 
     if (pokemon != undefined) {
 
+        let arr=["Hp", "Atk", "Def", "Spatk", "Spdef", "Speed"];
+
         // Generate "found" Pokemon level
         localStorage.wildPkmnLevel = 2 + Math.floor(Math.random() * 3);
 
         // Generate "found" Pokemon Individual Values
         generateIV();
-
-        // Generate "found" Pokemon Stats
-        getBaseStats(pokemon);
 
         // Determine proper spot to place captured pokemon
         let x = 1;
@@ -25,33 +24,41 @@ function searchRouteOne() {
         }
         let pokemonNum = "pokemon" + x;
 
-        // Store pokemon level
-        localStorage["pokemon" + x + "Level"] = localStorage.wildPkmnLevel;
+        // Generate "found" Pokemon Stats
+        getBaseStats(pokemon, x);
 
-        // Store pokemon in storage
+        // Store Pokemon in storage
         localStorage["pokemon" + x] = pokemon;
         console.log("Pokemon number " + x + " is " + pokemon);
 
-        // Store pokemon Individual Values
-        localStorage["pokemon" + x + "HP"] = localStorage.wildPkmnHpIV;
-        localStorage["pokemon" + x + "ATK"] = localStorage.wildPkmnAtkIV;
-        localStorage["pokemon" + x + "DEF"] = localStorage.wildPkmnDefIV;
-        localStorage["pokemon" + x + "SPEED"] = localStorage.wildPkmnSpeedIV;
-        localStorage["pokemon" + x + "SPATK"] = localStorage.wildPkmnSpatkIV;
-        localStorage["pokemon" + x + "SPDEF"] = localStorage.wildPkmnSpdefIV;
+        // Store Pokemon level
+        localStorage["pokemon" + x + "Level"] = localStorage.wildPkmnLevel;
+
+        // Store Pokemon Individual Values
+        for (let i = 0; i < 6; i++) {
+            localStorage["pokemon" + x + arr[i] + "IV"] = localStorage["wildPkmn" + arr[i] + "IV"];
+        }
+
+        for (let i = 0; i < 6; i++) {
+            //console.log(arr[i] + ": " + localStorage["pokemon" + x + arr[i] + "IV"]);
+        }
+
+        //console.log(localStorage["pokemon" + x + "HpStat"]);
 
         // Test
-        let str = "HP: " + localStorage["pokemon" + x + "HP"] + " ATK: " + localStorage["pokemon" + x + "ATK"];
-        console.log(str);
+        //let str = "HP: " + localStorage["pokemon" + x + "HpStat"] + " ATK: " + localStorage["pokemon" + x + "AtkStat"];
+        //console.log(str);
 
+        
         // Clear "found" pokemon Individual Values
-        localStorage.removeItem("pokemonFoundHp");
+        /*
+        localStorage.removeItem("wildHp");
         localStorage.removeItem("pokemonFoundAtk");
         localStorage.removeItem("pokemonFoundDef");
         localStorage.removeItem("pokemonFoundSpeed");
         localStorage.removeItem("pokemonFoundSpatk");
         localStorage.removeItem("pokemonFoundSpdef");
-
+        */
         
 
     } else console.log("No pokemon found");

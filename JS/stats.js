@@ -3,50 +3,85 @@
 // Generate IV's
 function generateIV() {
     localStorage.wildPkmnHpIV = Math.floor(Math.random() * 32);
+    //console.log("HpIV: " + localStorage.wildPkmnHpIV);
     localStorage.wildPkmnAtkIV = Math.floor(Math.random() * 32);
+    //console.log("AtkIV: " + localStorage.wildPkmnAtkIV);
     localStorage.wildPkmnDefIV = Math.floor(Math.random() * 32);
-    localStorage.wildPkmnSpeedIV = Math.floor(Math.random() * 32);
+    //console.log("DefIV: " + localStorage.wildPkmnDefIV);
     localStorage.wildPkmnSpatkIV = Math.floor(Math.random() * 32);
+    //console.log("SpatkIV: " + localStorage.wildPkmnSpatkIV);
     localStorage.wildPkmnSpdefIV = Math.floor(Math.random() * 32);
+    //console.log("SpdefIV: " + localStorage.wildPkmnSpdefIV);
+    localStorage.wildPkmnSpeedIV = Math.floor(Math.random() * 32);
+    //console.log("SpeedIV: " + localStorage.wildPkmnSpeedIV);
 }
 
 // Obtain base stats from API
-const getBaseStats = async (str) => {
+const getBaseStats = async (str, idx) => {
     str = str.toLowerCase();
     const url = `https://pokeapi.co/api/v2/pokemon/${str}`;
     const res = await fetch(url);
     const pokemon = await res.json();
-    //console.log(pokemon.stats[0].base_stat);
-    assignBaseStats(pokemon.stats);
+    //console.log(pokemon.stats);
+    assignBaseStats(pokemon.stats, idx);
 }
 
 // Assign base stats to localStorage
-function assignBaseStats(stats) {
+function assignBaseStats(stats, idx) {
     let statsArr = ['Hp', 'Atk', 'Def', 'Spatk', 'Spdef', 'Speed'];
     for (let i = 0; i < 6; i++) {
         localStorage["wildPkmnBase" + statsArr[i]] = stats[i].base_stat;
-        console.log("wildPkmnBase" + statsArr[i]);
+        //console.log("wildPkmnBase" + statsArr[i]);
         //console.log(localStorage["wildPkmnBase" + statsArr[i]]);
         //console.log("Base " + statsArr[i] + " = " + stats[i].base_stat);
     }
-    generateHp();
-
+    generateStats(idx);
 }
 
 function generateStats(idx) {
-
+    let otherStats = ['Hp', 'Atk', 'Def', 'Spatk', 'Spdef', 'Speed'];
+    let level = parseInt(localStorage.wildPkmnLevel);
+    generateHp(level);
+    for (let i = 1; i < 6; i++) {
+        generateOther(level, otherStats[i]);
+    }
+    /*
+    for (let i = 0; i < 6; i++) {
+        console.log(localStorage["wildPkmn" + otherStats[i] + "Stat"]);
+    }
+    */
+   assignStats(idx);
 }
 
-function generateHp() {
-    let level = parseInt(localStorage.wildPkmnLevel);
+function generateHp(level) {
     let hp = parseInt(localStorage.wildPkmnBaseHp);
     let hpIV = parseInt(localStorage.wildPkmnHpIV);
-    console.log("Level: " + level);
-    console.log("HP Base: " + hp);
-    console.log("HP IV: " + hpIV);
+    //console.log("Level: " + level);
+    //console.log("HP Base: " + hp);
+    //console.log("HP IV: " + hpIV);
+    localStorage.wildPkmnHpStat = level + 10 + Math.floor((((2 * hp) + hpIV) * level) / 100);
+    console.log("Hp: " + localStorage.wildPkmnHpStat);
+}
 
-    HpStat = parseInt(level) + 10 + Math.floor((((2 * hp) + hpIV) * level) / 100);
-    console.log(HpStat);
+function generateOther(level, stat) {
+    let baseStat = parseInt(localStorage["wildPkmnBase" + stat]);
+    let statIV = parseInt(localStorage["wildPkmn" + stat +"IV"]);
+    console.log("wildPkmn" + stat + "Stat");
+    localStorage["wildPkmn" + stat + "Stat"] = 5 + Math.floor((((2 * baseStat) + statIV) * level) / 100);
+    console.log(stat + ": " + localStorage["wildPkmn" + stat + "Stat"]);
+}
+
+function assignStats(idx) {
+    let arr = ['Hp', 'Atk', 'Def', 'Spatk', 'Spdef', 'Speed'];
+    // Store Pokemon Stats
+    console.log(localStorage.wildPkmnHpStat);
+    for (let i = 0; i < 6; i++) {
+        localStorage["pokemon" + idx + arr[i] + "Stat"] = localStorage["wildPkmn" + arr[i] + "Stat"];
+    }
+    
+    for (let i = 0; i < 6; i++) {
+        console.log("pokemon" + idx + arr[i] + "Stat: " + localStorage["pokemon" + idx + arr[i] + "Stat"]);
+    }
 }
 
 function checkStats(pokemon) {
@@ -64,5 +99,4 @@ function viewStorage() {
         let str = "pokemon" + x;
         document.getElementById(str).src = "../Assets/" + localStorage["pokemon" + x] + ".png";
     }
-
 }

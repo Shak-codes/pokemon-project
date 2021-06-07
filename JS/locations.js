@@ -6,7 +6,7 @@ function routeOnePokemon(num) {
         let pokemon = "Pidgey";
         return pokemon;
     } else if (num >= 120 && num <= 150) {
-        console.log("You have found a Ratata!");
+        console.log("You have found a Rattata!");
         let pokemon = "Rattata";
         return pokemon;
     } 
