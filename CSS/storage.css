@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap');
+
+* {
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 48px;
+}
+
+body {
+    background: url('../https://cdn-media-1.freecodecamp.org/imgr/MJAkxbh.png');
+}
+
+.storage-grid {
+    padding-top: 5%;
+    height: 75vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: 40px;
+}
+
+.storage {
+    height: 66vh;
+    width: 44vw;
+    background-image: url("../Assets/box-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid black;
+    border-radius: 25px;
+    display: grid;
+    padding-left: 7vw;
+    padding-top: 9vh;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+}
+
+.pokemon {
+    width: 50%;
+    margin-right: 5vw;
+    height: auto;
+}
