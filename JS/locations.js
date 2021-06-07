@@ -7,7 +7,7 @@ function routeOnePokemon(num) {
         return pokemon;
     } else if (num >= 120 && num <= 150) {
         console.log("You have found a Ratata!");
-        let pokemon = "Ratata";
+        let pokemon = "Rattata";
         return pokemon;
     } 
 }
@@ -80,96 +80,22 @@ function routeThree(num) {
         //localStorage.pokemonOne = "Mankey";
     } else if (num >= 71 && num <= 80) {
         console.log("You have found a Jigglypuff!");
-        //localStorage.pokemonOne = "Jigglypugg";
+        //localStorage.pokemonOne = "Jigglypuff";
     }
-}
-
-// Search algorithm
-function searchRouteOne() {
-
-    // Generate random number value
-    let num = Math.floor(Math.random() * 151);
-
-    // Generate pokemon
-    let pokemon = routeOnePokemon(num);
-
-    if (pokemon != undefined) {
-
-        // Generate "found" pokemon Individual Values
-        generateIV();
-
-        // Determine proper spot to place captured pokemon
-        let x = 1;
-
-        while (x <= 500 && localStorage["pokemon" + x]) {
-            x++;
-        }
-
-        // Store pokemon in storage
-        localStorage["pokemon" + x] = pokemon;
-        console.log("Pokemon number " + x + " is " + pokemon);
-
-        // Store pokemon Individual Values
-        localStorage["pokemon" + x + "HP"] = localStorage.pokemonFoundHp;
-        localStorage["pokemon" + x + "ATK"] = localStorage.pokemonFoundAtk;
-        localStorage["pokemon" + x + "DEF"] = localStorage.pokemonFoundDef;
-        localStorage["pokemon" + x + "SPEED"] = localStorage.pokemonFoundSpeed;
-        localStorage["pokemon" + x + "SPATK"] = localStorage.pokemonFoundSpatk;
-        localStorage["pokemon" + x + "SPDEF"] = localStorage.pokemonFoundSpdef;
-
-        // Test
-        let str = "HP: " + localStorage.pokemonFoundHp + " ATK: " + localStorage.pokemonFoundAtk;
-        console.log(str);
-
-        // Clear "found" pokemon Individual Values
-        localStorage.removeItem("pokemonFoundHp");
-        localStorage.removeItem("pokemonFoundAtk");
-        localStorage.removeItem("pokemonFoundDef");
-        localStorage.removeItem("pokemonFoundSpeed");
-        localStorage.removeItem("pokemonFoundSpatk");
-        localStorage.removeItem("pokemonFoundSpdef");
-
-        
-
-    } else console.log("No pokemon found");
-
 }
 
 function clearPokemon() {
     localStorage.clear();
 }
 
-function viewStorage() {
-    for (let x = 1; x <= 500 && localStorage["pokemon" + x]; x++) {
-        let str = "pokemon" + x;
-        document.getElementById(str).src = "../Assets/" + localStorage["pokemon" + x] + ".png";
-    }
 
-}
 
-function generateIV() {
-    localStorage.pokemonFoundHp = Math.floor(Math.random() * 32);
-    localStorage.pokemonFoundAtk = Math.floor(Math.random() * 32);
-    localStorage.pokemonFoundDef = Math.floor(Math.random() * 32);
-    localStorage.pokemonFoundSpeed = Math.floor(Math.random() * 32);
-    localStorage.pokemonFoundSpatk = Math.floor(Math.random() * 32);
-    localStorage.pokemonFoundSpdef = Math.floor(Math.random() * 32);
-}
-
-function checkStats(pokemon) {
-    document.getElementById("HP").innerHTML = "HP: " + localStorage[pokemon + "HP"];
-    document.getElementById("ATK").innerHTML = "ATK: " + localStorage[pokemon + "ATK"];
-    document.getElementById("DEF").innerHTML = "DEF: " + localStorage[pokemon + "DEF"];
-    document.getElementById("SPATK").innerHTML = "SPATK: " + localStorage[pokemon + "SPATK"];
-    document.getElementById("SPDEF").innerHTML = "SPDEF: " + localStorage[pokemon + "SPDEF"];
-    document.getElementById("SPEED").innerHTML = "SPEED: " + localStorage[pokemon + "SPEED"];
-}
-
-const getPokemon = async id => {
-    const url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+/*
+const getPokemon = async str => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${str}`;
     const res = await fetch(url);
     const pokemon = await res.json();
-    console.log(pokemon.stats);
+    console.log(pokemon.stats[0]);
 }
-
+*/
 
