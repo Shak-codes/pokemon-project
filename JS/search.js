@@ -34,14 +34,6 @@ function searchRouteOne() {
         // Store Pokemon level
         localStorage["pokemon" + x + "Level"] = localStorage.wildPkmnLevel;
 
-        // Store Pokemon Individual Values
-        for (let i = 0; i < 6; i++) {
-            localStorage["pokemon" + x + arr[i] + "IV"] = localStorage["wildPkmn" + arr[i] + "IV"];
-        }
-
-        for (let i = 0; i < 6; i++) {
-            //console.log(arr[i] + ": " + localStorage["pokemon" + x + arr[i] + "IV"]);
-        }
 
         //console.log(localStorage["pokemon" + x + "HpStat"]);
 

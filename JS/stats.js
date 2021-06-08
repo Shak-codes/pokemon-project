@@ -16,6 +16,32 @@ function generateIV() {
     //console.log("SpeedIV: " + localStorage.wildPkmnSpeedIV);
 }
 
+const getMoves = async str => {
+    str = str.toLowerCase();
+    const url = `https://pokeapi.co/api/v2/pokemon/${str}`;
+    const res = await fetch(url);
+    const pokemon = await res.json();
+    const moves = pokemon.moves;
+    //console.log(moves);
+    for (i in moves) {
+        //console.log(moves[i].move.name);
+        let moveDet = moves[i].version_group_details;
+        //console.log(moveDet);
+        for (j in moveDet) {
+            if (moveDet[j].version_group.name === "black-2-white-2" &&
+                moveDet[j].move_learn_method.name === "level-up") {
+                console.log("Lvl: " + moveDet[j].level_learned_at);
+                console.log("Move: " + moves[i].move.name);
+            }
+            //console.log(moveDet.version_group_details.version_group.name === "black-2-white-2");
+            //console.log(moveDet);
+        }
+    }
+    //console.log(moves);
+}
+
+getMoves("bulbasaur");
+
 // Obtain base stats from API
 const getBaseStats = async (str, idx) => {
     str = str.toLowerCase();
