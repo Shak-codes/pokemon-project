@@ -123,6 +123,6 @@ function checkStats(pokemon) {
 function viewStorage() {
     for (let x = 1; x <= 500 && localStorage["pokemon" + x]; x++) {
         let str = "pokemon" + x;
-        document.getElementById(str).src = "../Assets/" + localStorage["pokemon" + x] + ".png";
+        document.getElementById(str).src = "../pokesprite-master/pokemon-gen7x/regular/" + localStorage["pokemon" + x] + ".png";
     }
 }
