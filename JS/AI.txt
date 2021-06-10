@@ -1,0 +1,20 @@
+Wild pokemon AI 
+*Randomly choose between its four moves*
+
+Weak Trainer AI
+*Chooses the move that will do the most damage*
+
+Medium Trainer AI
+*Checks to see if using an item would benefit it*
+*Chooses move that does the most damage*
+
+Strong Trainer AI
+*Checks to see if using an item would benefit it*
+*Attempts to use a status move if possible*
+*Chooses move that does the most damage*
+
+Ultimate Trainer AI
+*Checks to see if using an item would benefit it*
+*Will switch for type advantage every 5 turns*
+*Attempts to use a status move if possible*
+*Chooses move that does the most damage*

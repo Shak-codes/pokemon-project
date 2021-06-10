@@ -2,7 +2,7 @@ Grass
 
 bulbasaur
 ivysaur
-venasaur
+venusaur
 oddish
 gloom
 vileplume
@@ -28,6 +28,8 @@ trevenant
 seedot
 nuzleaf
 shiftry
+snover
+abomasnow
 
 Fire
 
@@ -55,8 +57,9 @@ monferno
 infernape
 darumaka
 darmanitan
-vulpix
-ninetales
+litwick
+lampent
+chandelure
 
 Water
 
@@ -66,8 +69,9 @@ blastoise
 poliwag
 poliwhirl
 poliwrath
-tentacool
-tentacruel
+spheal
+sealeo
+walrein
 slowpoke
 slowbro
 slowking
@@ -157,7 +161,11 @@ gliscor
 skarmory
 tailow
 swellow
-
+yanma
+yanmega
+butterfree
+noibat
+noivern
 
 Poison
 
@@ -188,6 +196,12 @@ roserade
 venipede
 whirlipede
 scolipede
+croagunk
+toxicroak
+skorupi
+weedle
+kakuna
+beedrill
 
 Electric
 
@@ -247,9 +261,16 @@ vibrava
 flygon
 baltoy
 claydol
+drilbur
+excadrill
 gible
 gabite
 garchomp
+sandile
+krokorok
+krookodile
+golett
+golurk
 
 Fighting
 
@@ -267,6 +288,18 @@ monferno
 infernape
 riolu
 lucario
+croagunk
+toxicroak
+timburr
+gurdurr
+conkeldurr
+scraggy
+scrafty
+mienfoo
+mienshao
+pancham
+pangoro
+gallade
 
 Psychic
 
@@ -278,6 +311,25 @@ slowbro
 slowking
 baltoy
 claydol
+gothita
+gothorita
+gothitelle
+solosis
+duosion
+reuniclus
+inkay
+malamar
+espeon
+wobbuffet
+ralts
+kirlia
+gardevoir
+beldum
+metang
+metagross
+bronzor
+bronzong
+gallade
 
 Steel
 
@@ -287,6 +339,27 @@ magnezone
 steelix
 scizor
 scarmory
+honedge
+doublade
+aegislash
+beldum
+metang
+metagross
+aron
+lairon
+aggron
+bronzor
+bronzong
+lucario
+excadrill
+klink
+klang
+klinklang
+pawniard
+bisharp
+probopass
+shieldon
+bastiodon
 
 Ghost
 
@@ -298,6 +371,19 @@ misdreavus
 mismagius
 phantump
 trevenant
+golett
+golurk
+sableye
+duskull
+dusclops
+dusknoir
+yamask
+cofagrigus
+litwick
+lampent
+chandelure
+honedgedoublade
+aegislash
 
 Rock
 
@@ -316,6 +402,22 @@ tyranitar
 geodude
 graveler
 golem
+aron
+lairon
+aggron
+nosepass
+probopass
+cranidos
+rampardos
+shieldon
+bastiodon
+roggenrola
+boldore
+gigalith
+tyrunt
+tyrantrum
+amaura
+aurorus
 
 Bug
 
@@ -325,6 +427,22 @@ larvesta
 volcarona
 joltik
 galvantula
+pinsir
+yanma
+yanmega
+skorupi
+sewaddle
+swadloon
+leavanny
+venipede
+whirlipede
+scolipede
+weedle
+kakuna
+beedrill
+caterpie
+metapod
+butterfree
 
 Ice
 
@@ -334,6 +452,22 @@ weavile
 swinub
 piloswine
 mamoswine
+snover
+abomasnow
+glaceon
+amaura
+aurorus
+vanillite
+vanillish
+vanilluxe
+spheal
+sealeo
+walrein
+cubchoo
+beartic
+bergmite
+avalugg
+
 
 Dragon
 
@@ -345,6 +479,24 @@ flygon
 gible
 gabite
 garchomp
+tyrunt
+tyrantrum
+kingdra
+altaria
+bagon
+shelgon
+salamence
+axew
+fraxure
+haxorus
+deino
+zweilous
+hydreigon
+goomy
+sliggoo
+goodra
+noibat
+noivern
 
 Fairy
 
@@ -353,11 +505,39 @@ togetic
 togekiss
 marill
 azumarill
+ralts
+kirlia
+gardevoir
+sylveon
+snubbull
+granbull
+flabebe
+floette
+florges
 
 Dark
-Umbreon
+
+umbreon
 sneasel
 weavile
 houndour
 houndoom
 tyranitar
+scraggy
+scrafty
+sandile
+krokorok
+krookodile
+pangoro
+inkay
+malamar
+pawniard
+bisharp
+nuzleaf
+shiftry
+sableye
+zorua
+zoroark
+deino
+zweilous
+hydreigon
