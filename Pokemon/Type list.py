@@ -3,7 +3,7 @@ import json
 import time
 
 client = pokepy.V2Client()
-pkmn = client.get_evolution_chain(140)
+pkmn = client.get_evolution_chain(7)
 #print(pkmn[0].name)
 pkmn2 = pkmn[0].chain.evolves_to[0]
 #print(int(strn[42:].replace("/", "")))
@@ -20,6 +20,8 @@ def create_pokemon_list():
 
 def pokemon_data():
 
+    last_pkmn_evo = ['False', 'False']
+    dex_num = 1
     idx = 1
     
     ## Open file of pokemon names
@@ -123,16 +125,30 @@ def pokemon_data():
 
         
         ## Get evolution data
+        print(idx)
         evos = client.get_evolution_chain(idx)[0].chain
+        if last_pkmn_evo[0] == True and last_pkmn_evo[1] == False:
+            evos = evos.evolves_to[0]
+        elif (last_pkmn_evo[0] == True and last_pkmn_evo[1] == True):
+            evos = evos.evolves_to[0].evolves_to[0]
+        print("Current pokemon:", evos.species.name)
+        
         has_evo = hasattr(evos, 'evolves_to')
         
+        if (has_evo == True and evos.evolves_to != []):
 
-        if (has_evo == True):
+            if last_pkmn_evo[0] != True:
+                last_pkmn_evo[0] = True
+            else:
+                last_pkmn_evo[1] = True
+
             total_evos = len(evos.evolves_to)
+            print(name, "has", total_evos, "evolution(s)!")
             evo_data = []
             
             for i in range(total_evos):
 
+                print("evolution", i + 1, ":", evos.evolves_to[i].species.name)
                 evo_into.append(evos.evolves_to[i].species.name)
 
                 ## Create list that will hold the string data we wish to send into evo_req
@@ -218,9 +234,14 @@ def pokemon_data():
 
                 evo_req.append(evo_data)
 
+            idx -= 1
+            print("Subtract one from idx since our pokemon evolves")
+
                     
         ## If pokemon does not evolve set parameters to false
         else:
+            last_pkmn_evo[0] = False
+            last_pkmn_evo[1] = False
             evo_into = False
             evo_req = False
             pokemon["evo-req"] = evo_req
@@ -242,6 +263,9 @@ def pokemon_data():
         pokemon["base_stats"] = base_stats
 
         idx += 1
+        print("Add one to idx at the end")
+        dex_num += 1
+        print("Dex num:", dex_num)
         
         ## Prepare to write to json file
         json_object = json.dumps(pokemon, indent = 4)
