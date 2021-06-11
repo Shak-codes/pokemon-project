@@ -44,10 +44,10 @@ def pokemon_data():
     for x in f:
 
         ## Print pokemon name and assign pokemon data to pkmn
-        name = x.lower().strip()
+        ## name = x.lower().strip()
 
-        pkmn = client.get_pokemon(name)
-        pokemon["name"] = name
+        pkmn = client.get_pokemon(dex_num)
+        pokemon["name"] = pkmn[0].species.name
         print(name)
 
         ## Create variables to hold necessary data
@@ -115,7 +115,7 @@ def pokemon_data():
             abilities.append(pkmn[0].abilities[i].ability.name)
 
         ## Get pokemon rates
-        pkmn = client.get_pokemon_species(name)
+        pkmn = client.get_pokemon_species(dex_num)
 
         gender_rate = pkmn[0].gender_rate
         capture_rate = pkmn[0].capture_rate
