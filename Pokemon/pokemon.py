@@ -16,14 +16,15 @@ def create_pokemon_list():
         if x in special_pokemon:
             continue
         print(x, ":", client.get_evolution_chain(x)[0].chain.species.name)
-        include = input("Do you want to include this species?")
-        if include == "y":
-            f.write(str(x))
-            f.write("\n")
-        
+        f.write(client.get_evolution_chain(x)[0].chain.species.name + "\n")
     f.close()
     print("Completed")
 
+
+
+def pokemon_chains():
+    for i in range(223, 500):
+        print("chain", i, ":", client.get_evolution_chain(i)[0].chain.species.name)
         
 def pokemon_data():
 
