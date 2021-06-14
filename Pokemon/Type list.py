@@ -3,26 +3,31 @@ import json
 import time
 
 client = pokepy.V2Client()
-pkmn = client.get_evolution_chain(7)
+pkmn2 = client.get_pokemon("bulbasaur")
+pkmn = client.get_evolution_chain(211)
 #print(pkmn[0].name)
-pkmn2 = pkmn[0].chain.evolves_to[0]
+#pkmn2 = pkmn[0].chain.evolves_to[0]
 #print(int(strn[42:].replace("/", "")))
 #print(pkmn[0].chain.evolves_to[0].evolution_details[0].item)
-pokemon_lst = []
-
+special_pokemon = [210, 222, 225, 226, 227, 231, 238, 251]
 def create_pokemon_list():
     f = open("pokemon.txt", "a")
-    for x in range(1, 722):
-        f.write(client.get_pokemon(x)[0].name + "\n")
+    for x in range(1, 374):
+        if x in special_pokemon:
+            continue
+        print(x, ":", client.get_evolution_chain(x)[0].chain.species.name)
+        f.write(client.get_evolution_chain(x)[0].chain.species.name + "\n")
     f.close()
     print("Completed")
 
 
+
+def pokemon_chains():
+    for i in range(223, 500):
+        print("chain", i, ":", client.get_evolution_chain(i)[0].chain.species.name)
+        
 def pokemon_data():
 
-    last_pkmn_evo = ['False', 'False']
-    dex_num = 1
-    idx = 1
     
     ## Open file of pokemon names
     f = open("pokemon.txt", "r")
@@ -36,19 +41,21 @@ def pokemon_data():
         "move_levelup": [],
         "abilities": [],
         "rates": {"gender": 0, "capture": 0, "growth": ""},
-        "evo_into": [],
+        "evo_from": [],
         "evo_req": [],
         "base_stats": []
     }
-        
+
+    completed = []
+    
     for x in f:
 
         ## Print pokemon name and assign pokemon data to pkmn
-        ## name = x.lower().strip()
-
-        pkmn = client.get_pokemon(dex_num)
-        pokemon["name"] = pkmn[0].species.name
+        name = x.lower().strip()
         print(name)
+
+        pkmn = client.get_pokemon(name)
+        pokemon["name"] = name
 
         ## Create variables to hold necessary data
         ## before assignment to pokemon dictionary
@@ -60,7 +67,7 @@ def pokemon_data():
         gender_rate = 0
         capture_rate = 0
         growth_rate = ""
-        evo_into = []
+        evo_from = ""
         evo_req = []
         base_stats = []
 
@@ -115,7 +122,8 @@ def pokemon_data():
             abilities.append(pkmn[0].abilities[i].ability.name)
 
         ## Get pokemon rates
-        pkmn = client.get_pokemon_species(dex_num)
+        name2 = client.get_pokemon(name)[0].species.name
+        pkmn = client.get_pokemon_species(name2)
 
         gender_rate = pkmn[0].gender_rate
         capture_rate = pkmn[0].capture_rate
@@ -125,130 +133,114 @@ def pokemon_data():
 
         
         ## Get evolution data
-        print(idx)
-        evos = client.get_evolution_chain(idx)[0].chain
-        if last_pkmn_evo[0] == True and last_pkmn_evo[1] == False:
-            evos = evos.evolves_to[0]
-        elif (last_pkmn_evo[0] == True and last_pkmn_evo[1] == True):
-            evos = evos.evolves_to[0].evolves_to[0]
-        print("Current pokemon:", evos.species.name)
+        evo_from = client.get_pokemon_species(name2)[0].evolves_from_species
         
-        has_evo = hasattr(evos, 'evolves_to')
-        
-        if (has_evo == True and evos.evolves_to != []):
-
-            if last_pkmn_evo[0] != True:
-                last_pkmn_evo[0] = True
-            else:
-                last_pkmn_evo[1] = True
-
-            total_evos = len(evos.evolves_to)
-            print(name, "has", total_evos, "evolution(s)!")
-            evo_data = []
+        if (evo_from is not None):
+            evo_from = evo_from.name
             
-            for i in range(total_evos):
+            evo_data = []
 
-                print("evolution", i + 1, ":", evos.evolves_to[i].species.name)
-                evo_into.append(evos.evolves_to[i].species.name)
+            ## Create list that will hold the string data we wish to send into evo_req
+            string_data = ["item", "trigger", "gender", "held_item", "known_move", "known_move_type",
+                           "location", "min_level", "min_happiness", "min_beauty", "min-affection",
+                           "needs_overworld_rain", "party_species", "party_type", "relative_physical_status",
+                           "time_of_day", "trade_species", "turn_upside_down"]
+            string_len = len(string_data)
 
-                ## Create list that will hold the string data we wish to send into evo_req
-                string_data = ["item", "trigger", "gender", "held_item", "known_move", "known_move_type",
-                               "location", "min_level", "min_happiness", "min_beauty", "min-affection",
-                               "needs_overworld_rain", "party_species", "party_type", "relative_physical_status",
-                               "time_of_day", "trade_species", "turn_upside_down"]
-                string_len = len(string_data)
-
-                ## Reassign pkmn variable to evolution details
-                pkmn = evos.evolves_to[i].evolution_details[0]
+            ## Reassign pkmn variable to evolution details
+            pkmn = evos.evolves_to[i].evolution_details[0]
+            
+            for i in range(string_len):
+                data = []
+                data.append(string_data[i])
+                req = False
                 
-                for i in range(string_len):
-                    data = []
-                    data.append(string_data[i])
-                    req = False
-                    
-                    ## Get item
-                    if i == 0:
-                        req = pkmn.item
-                    ## Get trigger
-                    elif i == 1:
-                        req = pkmn.trigger
-                    ## Get gender
-                    elif i == 2:
-                        req = pkmn.gender
-                    ## Get held_item
-                    elif i == 3:
-                        req = pkmn.held_item
-                    ## Get known_move
-                    elif i == 4:
-                        req = pkmn.known_move
-                    ## Get known_move_type
-                    elif i == 5:
-                        req = pkmn.known_move_type
-                    ## Get location
-                    elif i == 6:
-                        req = pkmn.location
-                    ## Get min_level
-                    elif i == 7:
-                        req = pkmn.min_level
-                    ## Get min_happiness
-                    elif i == 8:
-                        req = pkmn.min_happiness
-                    ## Get min_beauty
-                    elif i == 9:
-                        req = pkmn.min_beauty
-                    ## Get min_affection
-                    elif i == 10:
-                        req = pkmn.min_affection
-                    ## Get needs_overworld_rain
-                    elif i == 11:
-                        req = pkmn.needs_overworld_rain
-                    ## Get party_species
-                    elif i == 12:
-                        req = pkmn.party_species
-                    ## Get party_type
-                    elif i == 13:
-                        req = pkmn.party_type
-                    ## Get relative_physical_status
-                    elif i == 14:
-                        req = pkmn.relative_physical_stats
-                    ## Get time_of_day
-                    elif i == 15:
-                        req = pkmn.time_of_day
-                    ## Get trade_species
-                    elif i == 16:
-                        req = pkmn.trade_species
-                    ## Get turn_upside_down
-                    elif i == 17:
-                        req = pkmn.turn_upside_down
+                ## Get item
+                if i == 0:
+                    req = pkmn.item
+                ## Get trigger
+                elif i == 1:
+                    req = pkmn.trigger
+                ## Get gender
+                elif i == 2:
+                    req = pkmn.gender
+                ## Get held_item
+                elif i == 3:
+                    req = pkmn.held_item
+                ## Get known_move
+                elif i == 4:
+                    req = pkmn.known_move
+                ## Get known_move_type
+                elif i == 5:
+                    req = pkmn.known_move_type
+                ## Get location
+                elif i == 6:
+                    req = pkmn.location
+                ## Get min_level
+                elif i == 7:
+                    req = pkmn.min_level
+                ## Get min_happiness
+                elif i == 8:
+                    req = pkmn.min_happiness
+                ## Get min_beauty
+                elif i == 9:
+                    req = pkmn.min_beauty
+                ## Get min_affection
+                elif i == 10:
+                    req = pkmn.min_affection
+                ## Get needs_overworld_rain
+                elif i == 11:
+                    req = pkmn.needs_overworld_rain
+                ## Get party_species
+                elif i == 12:
+                    req = pkmn.party_species
+                ## Get party_type
+                elif i == 13:
+                    req = pkmn.party_type
+                ## Get relative_physical_status
+                elif i == 14:
+                    req = pkmn.relative_physical_stats
+                ## Get time_of_day
+                elif i == 15:
+                    req = pkmn.time_of_day
+                ## Get trade_species
+                elif i == 16:
+                    req = pkmn.trade_species
+                ## Get turn_upside_down
+                elif i == 17:
+                    req = pkmn.turn_upside_down
 
-                    if req is None:
-                        data.append(False)
-                    elif req == "":
-                        data.append(False)
-                    elif (isinstance(req, int) or isinstance(req, str)):
-                        data.append(req)
-                    else:
-                        data.append(req.name)
+                if req is None:
+                    data.append(False)
+                elif req == "":
+                    data.append(False)
+                elif (isinstance(req, int) or isinstance(req, str)):
+                    data.append(req)
+                else:
+                    data.append(req.name)
 
-                    evo_data.append(data)
+                evo_data.append(data)
 
-                evo_req.append(evo_data)
+            evo_req.append(evo_data)
 
-            idx -= 1
-            print("Subtract one from idx since our pokemon evolves")
 
-                    
+
+                        
         ## If pokemon does not evolve set parameters to false
         else:
-            last_pkmn_evo[0] = False
+            last_pkmn_evo[0] = None
             last_pkmn_evo[1] = False
             evo_into = False
             evo_req = False
-            pokemon["evo-req"] = evo_req
+            fully_evolved.append(evos.species.name)
+            print("Adding", evos.species.name, "to fully_evolved")
             
+            pokemon["evo-req"] = evo_req
+                
     
 
         ## Update pokemon dict
+        print(fully_evolved)
             
         pokemon["type"] = types
         pokemon["moves_by_tm"] = moves_by_tm
@@ -262,10 +254,6 @@ def pokemon_data():
         pokemon["evo-req"] = evo_req
         pokemon["base_stats"] = base_stats
 
-        idx += 1
-        print("Add one to idx at the end")
-        dex_num += 1
-        print("Dex num:", dex_num)
         
         ## Prepare to write to json file
         json_object = json.dumps(pokemon, indent = 4)
